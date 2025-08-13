@@ -1,10 +1,10 @@
-import dotenv from "dotenv";
 import mongoose from "mongoose";
 
-dotenv.config();
-
-mongoDBURL = process.env.mongoURL;
-
 export async function ConnectToMongoURL(URL) {
-
-};
+  try {
+    await mongoose.connect(URL);
+    console.log("MongoDB connected successfully.!");
+  } catch (error) {
+    console.log("Failed to connect to mongoDB.");
+  }
+}
