@@ -1,7 +1,7 @@
 
 const SearchBar = ({ placeholder }) => {
   return (
-    <div className="flex mx-auto bg-[#f4f2f2] border-1 hover:border-1 border-transparent hover:border-gray-400 w-[90%] rounded-3xl py-0 px-2">
+    <div className="flex md:mx-3 mx-5 bg-[#f4f2f2] border-1 hover:border-1 border-transparent hover:border-gray-400 rounded-3xl py-0 px-2">
       <div className="flex justify-start items-center gap-2">
         <span className="ms-1 ">
           <svg
@@ -16,7 +16,7 @@ const SearchBar = ({ placeholder }) => {
         </span>
         <input
           placeholder={placeholder}
-          className="border-0 outline-none w-[340px] bg-[#f4f2f2] focus:bg-[#f4f2f2] py-2 text-baseline"
+          className="border-0 outline-none lg:w-[340px] md:w-[250px] bg-[#f4f2f2] focus:bg-[#f4f2f2] py-2 text-baseline"
           type="text"
         />
       </div>

@@ -1,6 +1,6 @@
 const Chat = () => {
   return (
-    <div className="fixed left-[515px] bg-[#f4f2f2] text-center w-[973px] cursor-default">
+    <div className="fixed left-[515px] md:block hidden bg-[#f4f2f2] text-center w-[973px] cursor-default">
       <div className="h-screen flex flex-col justify-center items-center w-[550px] mx-auto">
         <img
           className="h-48"

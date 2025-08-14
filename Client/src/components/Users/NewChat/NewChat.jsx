@@ -19,8 +19,7 @@ const NewChat = ({ placeholder, newChat, setNewChat }) => {
 
   return (
     <div
-      className={`fixed ${
-        newChat ? "left-[65px]" : "left-[0px]"
+      className={`fixed md:left-[65px]
       } transition-all ease-in-out duration-200 bg-white h-screen w-[450px] border-1 border-gray-300`}
     >
       <div className=" pt-5 px-4">

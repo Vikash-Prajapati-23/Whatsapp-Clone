@@ -20,10 +20,10 @@ const StartChat = ({ selectedUsers, messages, fetchUserMessages }) => {
         backgroundSize: "contain",
         backgroundAttachment: "fixed",
       }}
-      className="h-screen flex flex-col"
+      className="h-screen flex flex-col md:left-[465px] sm:z-0"
     >
       {/* HEADER */}
-      <div className="bg-white shadow-sm fixed md:left-[515px] left-0 md:min-w-[400px] min-w-full md:w-[973px] w-full">
+      <div className="bg-white shadow-sm fixed lg:left-[515px] md:left-[465px] left-0 lg:w-[64%] md:w-[40%] ">
         <div className="py-3 px-4 flex gap-4 items-center">
           <span className="h-11 w-12 bg-green-500 text-white flex justify-center items-center rounded-full">
             {selectedUsers.name.slice(0, 1)}
@@ -61,9 +61,9 @@ const StartChat = ({ selectedUsers, messages, fetchUserMessages }) => {
         ))}
       </div>
 
-      {/* INPUT BAR */}
-      <div className="fixed bottom-3 md:left-[515px] left-0 shrink md:min-w-[400px] min-w-full md:w-[957px] w-full">
-        <div className="flex mx-auto bg-white shadow-md rounded-3xl py-1 px-2 w-[98%]">
+      {/* Send message */}
+      <div className="fixed bottom-3 lg:left-[515px] md:left-[465px] left-0 lg:mx-2 lg:w-[64%] md:w-[38%] ">
+        <div className="flex mx-auto bg-white shadow-md rounded-3xl py-1 px-2 lg:w-[98%] md:w-[100%] lg:ms-0 ms-1 ">
           <div className="bg-transparent hover:bg-gray-200 h-9 w-9 flex justify-center items-center my-auto p-1 rounded-full cursor-pointer">
             <span className="material-symbols-outlined text-gray-500">add</span>
           </div>
@@ -76,7 +76,7 @@ const StartChat = ({ selectedUsers, messages, fetchUserMessages }) => {
 
           <input
             placeholder="Type a message"
-            className="flex-1 border-0 outline-none py-2 px-3"
+            className="flex-1 border-0 outline-none py-2 lg:px-3 "
           />
           <div className="bg-transparent hover:bg-gray-200 h-9 w-9 flex justify-center items-center my-auto p-1 rounded-full cursor-pointer">
             <span className="material-symbols-outlined text-gray-500">mic</span>
