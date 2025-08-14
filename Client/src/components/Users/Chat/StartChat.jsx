@@ -1,85 +1,85 @@
-const StartChat = () => {
+import { useEffect, useRef } from "react";
+
+const StartChat = ({ selectedUsers, messages, fetchUserMessages }) => {
+  const messagesEndRef = useRef(null);
+
+  // Scroll to bottom when messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  useEffect(() => {
+    if (!selectedUsers) return;
+    fetchUserMessages(selectedUsers.wa_id);
+  }, [selectedUsers]);
+
   return (
     <div
       style={{
         backgroundImage: `url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png")`,
-        backgroundSize: "contain", // Makes it fill the container
-        backgroundAttachment: "fixed", // stays fixed while scrolling
-        overflowY: "scroll"
+        backgroundSize: "contain",
+        backgroundAttachment: "fixed",
       }}
-      className="h-screen"
+      className="h-screen flex flex-col"
     >
-      {/* Head User chat section.  */}
-      <div className="fixed left-[515px] bg-white w-[973px] shadow-sm ">
-        <div className="relative py-3 px-4 border-none rounded-xl group">
-          <div className="flex justify-center items-center gap-4">
-            <img src="image" className="h-9 w-10 rounded-full " alt="" />
-
-            <div className="flex justify-between w-full">
-              <div className="flex flex-col">
-                <span className="font-normal text-md ">User Name</span>
-                <span className="text-xs text-gray-600">User Message</span>
-              </div>
-
-              <div className="flex justify-center items-center gap-3 me-1">
-                <div className="bg-transparent hover:bg-gray-100 h-9 w-9 flex justify-center items-center p-1 rounded-full cursor-pointer">
-                  <span
-                    className="material-symbols-outlined relative"
-                  >
-                    search
-                  </span>
-                </div>
-
-                <div className="bg-transparent hover:bg-gray-100 h-9 w-9 flex justify-center items-center p-1 rounded-full cursor-pointer">
-                  <span
-                    onClick={() => setShowCard((show) => !show)}
-                    className="material-symbols-outlined relative"
-                  >
-                    more_vert
-                  </span>
-                </div>
-              </div>
-            </div>
+      {/* HEADER */}
+      <div className="bg-white shadow-sm fixed md:left-[515px] left-0 md:min-w-[400px] min-w-full md:w-[973px] w-full">
+        <div className="py-3 px-4 flex gap-4 items-center">
+          <span className="h-11 w-12 bg-green-500 text-white flex justify-center items-center rounded-full">
+            {selectedUsers.name.slice(0, 1)}
+          </span>
+          <div className="flex-1">
+            <span className="block font-normal text-md">
+              {selectedUsers.name}
+            </span>
+            <span className="text-xs text-gray-600">{selectedUsers.from}</span>
           </div>
+          <span className="material-symbols-outlined">search</span>
+          <span className="material-symbols-outlined">more_vert</span>
         </div>
       </div>
 
-      {/* Message section.  */}
-      <div></div>
-
-      {/* Bottom Search bar section.  */}
-      <div className="fixed bottom-3 left-[515px] w-[957px] ">
-        <div className="flex mx-auto bg-white border-1 hover:border-1 border-transparent hover:border-gray-400 w-[98%] rounded-3xl py-1 px-2">
-          <div className="flex justify-start items-center">
-            <div className="bg-transparent hover:bg-gray-100 h-9 w-9 flex justify-center items-center p-1 rounded-full cursor-pointer">
-              <span
-                className="material-symbols-outlined relative"
-              >
-                add
-              </span>
+      {/* MESSAGES */}
+      <div className="p-4 space-y-2">
+        {messages.map((msg, index) => (
+          <div
+            key={index}
+            className={`flex ${
+              msg.from === selectedUsers.wa_id ? "justify-start" : "justify-end"
+            }`}
+          >
+            <div
+              className={`px-3 py-2 rounded-lg max-w-xs break-words ${
+                msg.from === selectedUsers.wa_id
+                  ? "bg-gray-300 text-black"
+                  : "bg-green-500 text-white"
+              }`}
+            >
+              {msg.text}
             </div>
-            <div className="bg-transparent hover:bg-gray-100 h-9 w-9 flex justify-center items-center p-1 rounded-full cursor-pointer me-2">
-              <span
-                className="material-symbols-outlined relative"
-              >
-                add_reaction
-              </span>
-            </div>
+          </div>
+        ))}
+      </div>
 
-            <input
-              placeholder="Type a message"
-              className="border-0 outline-none w-[800px] bg-white focus:bg-[#f4f2f2] py-2 text-baseline"
-              type="text"
-            />
+      {/* INPUT BAR */}
+      <div className="fixed bottom-3 md:left-[515px] left-0 shrink md:min-w-[400px] min-w-full md:w-[957px] w-full">
+        <div className="flex mx-auto bg-white shadow-md rounded-3xl py-1 px-2 w-[98%]">
+          <div className="bg-transparent hover:bg-gray-200 h-9 w-9 flex justify-center items-center my-auto p-1 rounded-full cursor-pointer">
+            <span className="material-symbols-outlined text-gray-500">add</span>
+          </div>
 
-            <div className="bg-transparent hover:bg-gray-100 h-9 w-9 flex justify-center items-center p-1 rounded-full cursor-pointer ms-1">
-              <span
-                onClick={() => setShowCard((show) => !show)}
-                className="material-symbols-outlined relative"
-              >
-                mic
-              </span>
-            </div>
+          <div className="bg-transparent hover:bg-gray-200 h-9 w-9 flex justify-center items-center my-auto p-1 rounded-full cursor-pointer">
+            <span className="material-symbols-outlined text-gray-500">
+              add_reaction
+            </span>
+          </div>
+
+          <input
+            placeholder="Type a message"
+            className="flex-1 border-0 outline-none py-2 px-3"
+          />
+          <div className="bg-transparent hover:bg-gray-200 h-9 w-9 flex justify-center items-center my-auto p-1 rounded-full cursor-pointer">
+            <span className="material-symbols-outlined text-gray-500">mic</span>
           </div>
         </div>
       </div>

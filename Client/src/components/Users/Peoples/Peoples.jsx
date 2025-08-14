@@ -1,12 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import SearchBar from "../../SearchBar/SearchBar";
-import axios from "axios";
 
-const baseUrl = "http://localhost:3100";
-
-const Peoples = ({ setNewChat, setShowChat }) => {
+const Peoples = ({ setNewChat, setShowChat, fetchMessages, users, setSelectedUsers }) => {
   const [showCard, setShowCard] = useState(false);
-  const [users, setUsers] = useState([]);
   const cardRef = useRef(null);
 
   const uniqueUsers = Array.from(
@@ -24,16 +20,6 @@ const Peoples = ({ setNewChat, setShowChat }) => {
   }, []);
 
   useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        const res = await axios.get(`${baseUrl}/api/get-messages/user-data`, {
-          credentials: "include",
-        });
-        setUsers(Array.isArray(res.data) ? res.data : []);
-      } catch (error) {
-        console.error("Error fetching messages:", error);
-      }
-    };
     fetchMessages();
   }, []);
 
@@ -61,6 +47,7 @@ const Peoples = ({ setNewChat, setShowChat }) => {
               </span>
             </div>
           </div>
+
           {showCard && (
             <div
               ref={cardRef}
@@ -127,18 +114,15 @@ const Peoples = ({ setNewChat, setShowChat }) => {
         {uniqueUsers.map((user, index) => (
           <div
             key={`${index}`}
-            onClick={() => setShowChat(true)}
+            onClick={() => {setShowChat(true); setSelectedUsers(user)}}
             className="relative cursor-pointer py-3 px-4 hover:bg-[#f4f2f2] border-none rounded-xl mx-5 group"
           >
             <div className="flex justify-center items-center gap-4">
-              <img
-                src={user.avatar || "image"}
-                className="h-9 w-10 rounded-full"
-                alt={user.name}
-              />
+              <span 
+                className="h-11 w-13 bg-green-500 text-white flex justify-center items-center rounded-full"> {user.name.slice(0, 1)} </span>
               <div className="flex justify-between w-full">
                 <div className="flex flex-col">
-                  <span className="font-semibold text-md">{user.name}</span>
+                  <span className="font-normal text-md">{user.name}</span>
                   <span className="text-sm text-gray-600 truncate max-w-[200px]">
                     {user.text}
                   </span>
